@@ -141,7 +141,7 @@ ax.set_ylim(0,650)
 
 """# RESULTADO"""
 
-fig, axs = plt.subplots(4, 1, figsize=(15, 20))
+fig, axs = plt.subplots(5, 1, figsize=(18, 18))
 #ANUAL
 ax1 = axs[0]
 y = pp_anual.mean(dim=("latitude","longitude")).Prec.to_numpy()
@@ -180,3 +180,14 @@ ax4.set_ylabel("[mm]",size=14)
 ax4.set_xlabel("")
 ax4.set_title("(d) DJF",fontsize=15)
 ax4.set_ylim(0,650)
+
+#MAM
+ax5 = axs[4]
+y5 = pp_MAM_yearly["Prec"].to_numpy()
+x5 = np.arange(1982,2017,1)
+ax5.bar(x5,y5, color="green")
+ax5.set_ylabel("[mm]",size=14)
+ax4.set_xlabel("")
+ax5.set_title("(e) MAM",fontsize=15)
+ax5.set_ylim(0,650)
+fig.savefig("Figura5.png")
