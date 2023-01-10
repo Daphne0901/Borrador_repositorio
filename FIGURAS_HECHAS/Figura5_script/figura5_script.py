@@ -39,14 +39,14 @@ pp_df["year"] = pp_filtro["time"].dt.year
 pp_JJA = pp_df[(pp_df["month"]== 6) | (pp_df["month"]==7) | (pp_df["month"]==8) ]
 pp_DJF = pp_df[(pp_df["month"]== 12) | (pp_df["month"]==1) | (pp_df["month"]==2) ]
 pp_SON = pp_df[(pp_df["month"]== 9) | (pp_df["month"]==10) | (pp_df["month"]==11) ]
-pp_MOM = pp_df[(pp_df["month"]== 3) | (pp_df["month"]==4) | (pp_df["month"]==5) ]
+pp_MAM = pp_df[(pp_df["month"]== 3) | (pp_df["month"]==4) | (pp_df["month"]==5) ]
 #Haciendo un resample
 pp_DJF_yearly= pp_DJF.resample("1Y").sum()
 pp_JJA_yearly= pp_JJA.resample("1Y").sum()
 pp_SON_yearly= pp_SON.resample("1Y").sum()
-pp_MOM_yearly= pp_MOM.resample("1Y").sum()
+pp_MAM_yearly= pp_MAM.resample("1Y").sum()
 
-fig, axs = plt.subplots(4, 1, figsize=(20, 17))
+fig, axs = plt.subplots(5, 1, figsize=(18, 18))
 #ANUAL
 ax1 = axs[0]
 y = pp_anual.mean(dim=("latitude","longitude")).Prec.to_numpy()
@@ -85,4 +85,14 @@ ax4.set_ylabel("[mm]",size=14)
 ax4.set_xlabel("")
 ax4.set_title("(d) DJF",fontsize=15)
 ax4.set_ylim(0,650)
+
+#MAM
+ax5 = axs[4]
+y5 = pp_MAM_yearly["Prec"].to_numpy()
+x5 = np.arange(1982,2017,1)
+ax5.bar(x5,y5, color="green")
+ax5.set_ylabel("[mm]",size=14)
+ax4.set_xlabel("")
+ax5.set_title("(e) MAM",fontsize=15)
+ax5.set_ylim(0,650)
 fig.savefig("Figura5.png")
